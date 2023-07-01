@@ -84,37 +84,23 @@ def calcHSVINT(R, G, B):
         S = 0
         H = -1
         return H, S, V
-
-    # Step 4 find the selector index based on which color is the Min/Max, special case is needed if two are the same
-    if R != G != B:
-        if M == R and m == B:
-            I = 0
-        elif M == G and m == B:
-            I = 1
-        elif M == G and m == R:
-            I = 2
-        elif M == B and m == R:
-            I = 3
-        elif M == B and m == G:
-            I = 4
-        elif M == R and m == G:
-            I = 5
-    else:
-        if M == R and m == B:
-            I = 0
-        elif M == G and m == B:
-            I = 1
-        elif M == G and m == R:
-            I = 3
-        elif M == B and m == R:
-            I = 4
-        elif M == B and m == G:
-            I = 2
-        elif M == R and m == G:
-            I = 5
-
-    # Step 5 calculate S using d and V
+        
+    # Step 4 calculate S using d and V
     S = int(((d << bitShift) - 1) / V)
+
+    # Step 5 find the selector index based on which color is the Min/Max, special case is needed if two are the same
+    if M == R and m == B:
+        I = 0
+    elif M == G and m == B:
+        I = 1
+    elif M == G and m == R:
+        I = 2
+    elif M == B and m == R:
+        I = 3
+    elif M == B and m == G:
+        I = 4
+    elif M == R and m == G:
+        I = 5
 
     # Step 6 calculate F using c, m and d, check if I is 1,3,5 and set F to its inverse
     F = int((((c - m) << 16) / d) + 1)
